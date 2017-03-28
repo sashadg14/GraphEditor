@@ -8,6 +8,7 @@ import com.company.elementsOfGraph.Node;
 
 import java.util.Iterator;
 
+import static java.lang.Thread.currentThread;
 import static javax.swing.SwingUtilities.invokeLater;
 
 /**
@@ -20,6 +21,7 @@ public class Controller
     private boolean isHaveMovingNode=false;
     private Node[] masOfConnectingNodes;
     private int countOfConectingNodes=0;
+    private Edge tempEdge;
     private FileManipulations fileManipulations;
     public Controller(TestFrame testFrame)
     {   isMovingNode=null;
@@ -35,9 +37,9 @@ public class Controller
         graph.addNode(new Node(nodeX-15,nodeY-15));
         testFrame.setGraph(graph);
     }
-    private void addEdge(Node node1, Node node2)
+    private void addEdge(Edge edge)
     {
-        graph.addEdge(new Edge(node1,node2));
+        graph.addEdge(edge);
         testFrame.setGraph(graph);
     }
 
@@ -75,7 +77,7 @@ public class Controller
             nodeIterator.remove();
         }
         }
-        testFrame.setGraph(graph);
+       // testFrame.setGraph(graph);
     }
 
     public void deleteEnteredEdge()
@@ -119,17 +121,52 @@ public class Controller
     }
     }
 
-    public void addNodeForConnection(Node node)
+    public void addNodeForConnection(int positionMouseX,int positionMouseY)
     { //  System.out.println("sddsfaads");
-        masOfConnectingNodes[countOfConectingNodes]=node;
-        countOfConectingNodes++;
+        for(Node node:testFrame.getGraph().getNodeList())
+        {
+            if(node.isEntered())
+            {
+                masOfConnectingNodes[countOfConectingNodes]=node;
+                countOfConectingNodes++;
+            }
+        }
+        if(countOfConectingNodes==1)
+        {
+            masOfConnectingNodes[1]=new Node(positionMouseX-15,positionMouseY-15);
+            tempEdge=new Edge(masOfConnectingNodes[0],masOfConnectingNodes[1]);
+            addEdge(tempEdge);
+        }
         if(countOfConectingNodes==2)
         {
             countOfConectingNodes=0;
-            addEdge(masOfConnectingNodes[0],masOfConnectingNodes[1]);
+            tempEdge.setSecondNode(masOfConnectingNodes[1]);
             masOfConnectingNodes[0]=null;
             masOfConnectingNodes[1]=null;
         }
+    }
+    public void deleteTempEdge()
+    {
+        Iterator<Edge> edgeIterator = graph.getEdgeList().iterator();
+        Edge edge;
+        while (edgeIterator.hasNext())
+        {
+            edge = edgeIterator.next();
+            if(tempEdge!=null&&tempEdge==edge)
+                edgeIterator.remove();
+        }
+
+    }
+
+
+    public void toChangePositionOfTempEdge(int x, int y)
+    {
+        if(countOfConectingNodes==1)
+    {
+        masOfConnectingNodes[1].setCenterX(x);
+        masOfConnectingNodes[1].setCenterY(y);
+    }
+
     }
 
     public boolean isHaveMovingNode() {
@@ -163,6 +200,7 @@ public class Controller
         return false;
     }
 
+
     public boolean haveActiveEdge()
     {
         for (Edge edge:graph.getEdgeList())
@@ -174,7 +212,6 @@ public class Controller
         }
         return false;
     }
-
 
     public void setWeigth(String string)
     {
@@ -194,12 +231,20 @@ public class Controller
     }
 
     public void loadGraphFromFile()
-    {   graph.deleteOllElements();
+    {
+      //  if(fileManipulations.loadGraph(graph))
+            graph.deleteOllElements();
         fileManipulations.loadGraph(graph);
     }
 
     public void doTask()
     {
-        invokeLater(new MyRunnable(graph));
+        Thread thread= new Thread(new MyRunnable(graph,null,null));
+        thread.start();
+    }
+
+    public void editScrollPane(int posMouseX, int posMouseY)
+    {
+
     }
 }

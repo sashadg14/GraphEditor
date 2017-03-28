@@ -21,7 +21,7 @@ public class FileManipulations {
     }
 
     void SaveGraph(Graph graph) {
-        String fileName = null;
+        String fileName ="";
         JFileChooser jf = new JFileChooser();
         int result = jf.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
@@ -67,7 +67,7 @@ public class FileManipulations {
         }
     }
 
-    void loadGraph(Graph graph) {
+    boolean loadGraph(Graph graph) {
         String fileName = null;
         JFileChooser jf = new JFileChooser();
         int result = jf.showOpenDialog(null);
@@ -75,9 +75,12 @@ public class FileManipulations {
             fileName = jf.getSelectedFile().getAbsolutePath();
         }
         FileReader reader = null;
-        try {reader = new FileReader(fileName);
+        try {
+            if(fileName!=null)
+                reader = new FileReader(fileName);
+            else
+                return false;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
 
         int c;
@@ -111,5 +114,6 @@ public class FileManipulations {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return true;
     }
 }

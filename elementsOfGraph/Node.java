@@ -18,7 +18,7 @@ public class Node {
     private boolean isEntered=false;
     private long id;
     private String identificator="";
-
+    private boolean visited=false;
     public String getIdentificator() {
         return identificator;
     }
@@ -28,8 +28,19 @@ public class Node {
         this.centerY=centerY;
         id= (long)(Math.random()*100000000);
     }
+    public boolean isVisited() {
+        return visited;
+    }
 
-    public Node(String identificator, long id,int centerX,int centerY)
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public void setColorOfNode(Color colorOfNode) {
+        this.colorOfNode = colorOfNode;
+    }
+
+    public Node(String identificator, long id, int centerX, int centerY)
     {   colorOfNode=Color.BLACK;
         this.centerX=centerX;
         this.centerY=centerY;

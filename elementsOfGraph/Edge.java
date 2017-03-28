@@ -14,14 +14,37 @@ public class Edge {
     private Color color;
     private boolean isActive=false;
     private String weigth="";
+    private boolean visited=false;
+    private int positionMouseX;
+    private int positionMouseY;
     public Edge(Node node1,Node node2)
     {   this.firstNode =node1;
         this.secondNode =node2;
         color=Color.gray;
     }
 
+    public void setPositionMouseX(int positionMouseX) {
+        this.positionMouseX = positionMouseX;
+    }
+
+    public void setPositionMouseY(int positionMouseY) {
+        this.positionMouseY = positionMouseY;
+    }
+
     public boolean isActive() {
         return isActive;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public boolean isVisited() {
+        return visited;
     }
 
     public void setActive(boolean active) {
@@ -56,7 +79,16 @@ public class Edge {
     {
         graphics2D.setColor(color);
         graphics2D.setStroke(new BasicStroke(10));
+        if(firstNode!=secondNode)
         graphics2D.drawLine(firstNode.getCenterX()+15, firstNode.getCenterY()+15, secondNode.getCenterX()+15, secondNode.getCenterY()+15);
+        else
+            {
+                graphics2D.fillOval(firstNode.getCenterX()+10,firstNode.getCenterY()-15, 60,60);
+                graphics2D.setColor(Color.WHITE);
+                graphics2D.fillOval(firstNode.getCenterX()+20,firstNode.getCenterY()-5, 40,40);
+
+            }
+
         graphics2D.setColor(Color.blue);
         graphics2D.setFont( new Font("TimesRoman", Font.ITALIC+Font.BOLD,   20));
         graphics2D.drawString(weigth, (firstNode.getCenterX()+30+secondNode.getCenterX()+30)/2,
@@ -82,7 +114,6 @@ public class Edge {
                    (firstNode.getCenterX() * secondNode.getCenterY() - secondNode.getCenterX() * firstNode.getCenterY())) /
                    Math.pow((secondNode.getCenterX() - firstNode.getCenterX()) * (secondNode.getCenterX() - firstNode.getCenterX()) +
                            (secondNode.getCenterY() - firstNode.getCenterY()) * (secondNode.getCenterY() - firstNode.getCenterY()), 0.5));
-
        if(Math.abs(H)<15)
        {
         color=Color.orange;

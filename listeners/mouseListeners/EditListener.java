@@ -26,7 +26,7 @@ import java.awt.event.MouseListener;
 
 
     public void mouseClicked(MouseEvent e) {
-                if(e.getButton()==1)
+            if(e.getButton()==1)
                 {
                     if(e.getClickCount()==2)
                         controller.addNode(e.getX(),e.getY());
@@ -78,7 +78,12 @@ import java.awt.event.MouseListener;
         }
 
         @Override
-        public void mouseExited(MouseEvent mouseEvent) {
+        public void mouseExited(MouseEvent mouseEvent)
+        {   if(controller.isHaveMovingNode())
+            {
 
+               // testFrame.resizePanel(4000,3000);
+                //System.out.println(Integer.toString(testFrame.getjLabel().getX())+" "+testFrame.getjLabel().getY());
+            }
         }
     }

@@ -7,13 +7,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 /**
- * Created by alex on 14.03.2017.
+ * Created by alex o n 16.03.2017.
  */
-public class EdgeMouseMotionListener implements MouseMotionListener {
+public class TaskMouseMotionListener implements MouseMotionListener {
 
     private TestFrame testFrame;
     private Controller controller;
-    public EdgeMouseMotionListener(TestFrame testFrame, Controller controller)
+    public TaskMouseMotionListener(TestFrame testFrame, Controller controller)
     {
         this.testFrame=testFrame;
         this.controller=controller;
@@ -28,6 +28,5 @@ public class EdgeMouseMotionListener implements MouseMotionListener {
     {
         controller.ifEnteredNode(mouseEvent.getX(),mouseEvent.getY());
         testFrame.renderAllElements();
-        controller.toChangePositionOfTempEdge(mouseEvent.getX(),mouseEvent.getY());
     }
 }

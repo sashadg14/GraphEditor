@@ -3,14 +3,8 @@ package com.company;
 
 import com.company.Controllers.Controller;
 import com.company.elementsOfGraph.Graph;
-import com.company.listeners.mouseListeners.DeleteButtonListener;
-import com.company.listeners.mouseListeners.EdgeListener;
-import com.company.listeners.mouseListeners.EditListener;
-import com.company.listeners.mouseListeners.IdtfEditButtonListener;
-import com.company.listeners.mouseMotionListeners.DeleteButtonMouseMotionListener;
-import com.company.listeners.mouseMotionListeners.EdgeMouseMotionListener;
-import com.company.listeners.mouseMotionListeners.EditMouseMotionListener;
-import com.company.listeners.mouseMotionListeners.IdtfEditButtonMouseMotionListeners;
+import com.company.listeners.mouseListeners.*;
+import com.company.listeners.mouseMotionListeners.*;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -40,7 +34,10 @@ public class TestFrame {
     final JButton edgeButton;
     final JButton deleteButton;
     final JButton editItdfButton;
+    final JButton taskButton;
     JFrame frame;
+    JScrollPane jsp;
+    private int scrollPositionX, scrollPositionY;
     public TestFrame() {
         controller = new Controller(this);
         frame = new JFrame("KBE: second edition");
@@ -50,10 +47,12 @@ public class TestFrame {
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
+
         arrowButton = new JButton(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\arrowNonActive.png"));
         edgeButton = new JButton(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\edge.png"));
         deleteButton= new JButton(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\delete.png"));
         editItdfButton = new JButton(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\textEdit.png"));
+        taskButton = new JButton(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\taskButton.png"));
 
         imag = new BufferedImage(2200, 2000, BufferedImage.TYPE_INT_RGB);
         jLabel = new JLabel(new ImageIcon(imag));
@@ -68,7 +67,7 @@ public class TestFrame {
         deleteButtonMouseMotionListener=new DeleteButtonMouseMotionListener(this,controller);
         idtfEditButtonMouseMotionListeners=new IdtfEditButtonMouseMotionListeners(this,controller);
 
-        JScrollPane jsp = new JScrollPane(jLabel);
+        jsp = new JScrollPane(jLabel);
         graph=new Graph(this);
         frame.setSize(1000, 800);
         jsp.setPreferredSize(new Dimension(1550, 0));
@@ -80,13 +79,21 @@ public class TestFrame {
         creatingTolbar();
         creatingFileMenu();
 
-
-
-        //System.out.println("-----------"+mas[i]);
-
+        System.out.println(jsp.getHeight()+"----"+jsp.getWidth());
+        jsp.getViewport().setViewPosition(new Point(0,10));
+        //System.out.println(jsp.getAlignmentX()+"  _"+jsp.get);
        // String[] mas1=mas[0].split()
 
+    }
+    public  void resizePanel(int width, int heigth)
+    {
+        imag = new BufferedImage(width, heigth, BufferedImage.TYPE_INT_RGB);
+       jLabel.setIcon(new ImageIcon(imag));
+        graphics2D=(Graphics2D)imag.getGraphics();
+    }
 
+    public JScrollPane getJsp() {
+        return jsp;
     }
 
     private void addListnersForEditGraph()
@@ -95,6 +102,7 @@ public class TestFrame {
         edgeButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\edge.png"));
         deleteButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\delete.png"));
         editItdfButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\textEdit.png"));
+        taskButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\taskButton.png"));
 
         jLabel.removeMouseListener(edgeListener);
         jLabel.removeMouseMotionListener(edgeMouseMotionListener);
@@ -112,6 +120,7 @@ public class TestFrame {
         edgeButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\edgeActive.png"));
         deleteButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\delete.png"));
         editItdfButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\textEdit.png"));
+        taskButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\taskButton.png"));
 
         jLabel.removeMouseListener(editListener);
         jLabel.removeMouseMotionListener(editMouseMotionListener);
@@ -130,6 +139,7 @@ public class TestFrame {
         edgeButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\edge.png"));
         deleteButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\deleteActive.png"));
         editItdfButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\textEdit.png"));
+        taskButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\taskButton.png"));
 
         jLabel.removeMouseListener(editListener);
         jLabel.removeMouseMotionListener(editMouseMotionListener);
@@ -148,6 +158,7 @@ public class TestFrame {
         edgeButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\edge.png"));
         deleteButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\delete.png"));
         editItdfButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\textEditActive.png"));
+        taskButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\taskButton.png"));
 
         jLabel.removeMouseListener(editListener);
         jLabel.removeMouseMotionListener(editMouseMotionListener);
@@ -159,6 +170,26 @@ public class TestFrame {
         jLabel.addMouseListener(idtfEditButtonListener);
         jLabel.addMouseMotionListener(idtfEditButtonMouseMotionListeners);
     }
+
+    public void addListenersForTaskRealization()
+    {
+        arrowButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\arrowNonActive.png"));
+        edgeButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\edge.png"));
+        deleteButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\delete.png"));
+        editItdfButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\textEdit.png"));
+        taskButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\taskButtonActive.png"));
+
+        jLabel.removeMouseListener(editListener);
+        jLabel.removeMouseMotionListener(editMouseMotionListener);
+        jLabel.removeMouseListener(edgeListener);
+        jLabel.removeMouseMotionListener(edgeMouseMotionListener);
+        jLabel.removeMouseListener(deleteButtonListener);
+        jLabel.removeMouseMotionListener(deleteButtonMouseMotionListener);
+
+        jLabel.addMouseListener(new TaskMouseListener(this,controller));
+        jLabel.addMouseMotionListener(new TaskMouseMotionListener(this,controller));
+    }
+
     private void creatingFileMenu()
     {
         JMenuBar menuBar = new JMenuBar();
@@ -242,6 +273,14 @@ public class TestFrame {
             }
         });
         toolbar.add(editItdfButton);
+        taskButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                addListenersForTaskRealization();
+                controller.doTask();
+            }
+        });
+        toolbar.add(taskButton);
+
         frame.add(toolbar);
     }
 
@@ -249,11 +288,12 @@ public class TestFrame {
         return jLabel;
     }
 
-    public   void renderAllElements()
+    public void renderAllElements()
     {
         graph.renderAllElements();
     }
 
+    public void rend(){graph.renderAllElements_part2();}
 
 
     public void setGraph(Graph graph) {
