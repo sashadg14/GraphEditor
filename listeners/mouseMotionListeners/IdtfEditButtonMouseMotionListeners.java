@@ -12,20 +12,20 @@ import java.awt.event.MouseMotionListener;
 public class IdtfEditButtonMouseMotionListeners implements MouseMotionListener {
     private TestFrame testFrame;
     private Controller controller;
-    public IdtfEditButtonMouseMotionListeners(TestFrame testFrame, Controller controller)
-    {
-        this.testFrame=testFrame;
-        this.controller=controller;
+
+    public IdtfEditButtonMouseMotionListeners(TestFrame testFrame, Controller controller) {
+        this.testFrame = testFrame;
+        this.controller = controller;
     }
+
     @Override
-    public void mouseDragged(MouseEvent mouseEvent)
-    {
+    public void mouseDragged(MouseEvent mouseEvent) {
 
     }
+
     @Override
-    public void mouseMoved(MouseEvent mouseEvent)
-    {
-        controller.ifEnteredNode(mouseEvent.getX(),mouseEvent.getY());
+    public void mouseMoved(MouseEvent mouseEvent) {
+        controller.ifEnteredNode(mouseEvent.getX(), mouseEvent.getY());
         controller.ifEnterEdge(mouseEvent.getX(), mouseEvent.getY());
         testFrame.renderAllElements();
     }

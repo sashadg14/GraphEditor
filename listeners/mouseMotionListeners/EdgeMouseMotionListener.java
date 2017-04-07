@@ -13,21 +13,21 @@ public class EdgeMouseMotionListener implements MouseMotionListener {
 
     private TestFrame testFrame;
     private Controller controller;
-    public EdgeMouseMotionListener(TestFrame testFrame, Controller controller)
-    {
-        this.testFrame=testFrame;
-        this.controller=controller;
+
+    public EdgeMouseMotionListener(TestFrame testFrame, Controller controller) {
+        this.testFrame = testFrame;
+        this.controller = controller;
     }
+
     @Override
-    public void mouseDragged(MouseEvent mouseEvent)
-    {
+    public void mouseDragged(MouseEvent mouseEvent) {
 
     }
+
     @Override
-    public void mouseMoved(MouseEvent mouseEvent)
-    {
-        controller.ifEnteredNode(mouseEvent.getX(),mouseEvent.getY());
+    public void mouseMoved(MouseEvent mouseEvent) {
+        controller.ifEnteredNode(mouseEvent.getX(), mouseEvent.getY());
         testFrame.renderAllElements();
-        controller.toChangePositionOfTempEdge(mouseEvent.getX(),mouseEvent.getY());
+        controller.toChangePositionOfTempEdge(mouseEvent.getX(), mouseEvent.getY());
     }
 }

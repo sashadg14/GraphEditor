@@ -4,15 +4,19 @@ import com.company.elementsOfGraph.Edge;
 import com.company.elementsOfGraph.Graph;
 import com.company.elementsOfGraph.Node;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.io.*;
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 /**
  * Created by alex on 12.03.2017.
  */
+//JDOM, SAX parser, DOM parser, STaX
+//JAXB
+//XMLStreams
 public class FileManipulations {
     private Controller controller;
 
@@ -21,7 +25,7 @@ public class FileManipulations {
     }
 
     void SaveGraph(Graph graph) {
-        String fileName ="";
+        String fileName = "";
         JFileChooser jf = new JFileChooser();
         int result = jf.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
@@ -76,7 +80,7 @@ public class FileManipulations {
         }
         FileReader reader = null;
         try {
-            if(fileName!=null)
+            if (fileName != null)
                 reader = new FileReader(fileName);
             else
                 return false;
@@ -84,30 +88,28 @@ public class FileManipulations {
         }
 
         int c;
-        String str="";
+        String str = "";
         try {
             while ((c = reader.read()) != -1) {
 
-                str+=(char)c;
+                str += (char) c;
             }
-            String[] mas=str.split("\\n*.*<\\/*GRAPH>|.*\\n*.*<\\/*Nodes>*|\\n*.*<node\\s*>*|\\n*.*<\\/node>.*|\\n*<Edges>(.*\\n*)*<\\/Edges>\\n*.*");
-            for(int i=0;i<mas.length;i++)
-            {String[] masOfPiese;
-                if(mas[i].length()!=0)
-                {
-                    masOfPiese=mas[i].split(".*type=\"|\"\\sidtf=\"|\" id=\"|\" x=\"|\" y=\"|\">");
-                    graph.addNode(new Node(masOfPiese[2].toString(),Integer.parseInt( masOfPiese[3]),Integer.parseInt( masOfPiese[4]),Integer.parseInt( masOfPiese[5])));
+            String[] mas = str.split("\\n*.*<\\/*GRAPH>|.*\\n*.*<\\/*Nodes>*|\\n*.*<node\\s*>*|\\n*.*<\\/node>.*|\\n*<Edges>(.*\\n*)*<\\/Edges>\\n*.*");
+            for (int i = 0; i < mas.length; i++) {
+                String[] masOfPiese;
+                if (mas[i].length() != 0) {
+                    masOfPiese = mas[i].split(".*type=\"|\"\\sidtf=\"|\" id=\"|\" x=\"|\" y=\"|\">");
+                    graph.addNode(new Node(masOfPiese[2].toString(), Integer.parseInt(masOfPiese[3]), Integer.parseInt(masOfPiese[4]), Integer.parseInt(masOfPiese[5])));
                 }
             }
-            mas=null;
-            mas=str.split("(\\n*.*<\\/*GRAPH>)\\n*|(<Nodes>(\\n.*\\n*)*<\\/Nodes>)|\\n*.*(<\\/*Edges>).*\\n*|<edge |\\n*<\\/edge>.*\\n*");
-            for(int i=0;i<mas.length;i++)
-            {String[] masOfPiese;
-                if(mas[i].length()!=0)
-                {
-                    masOfPiese=mas[i].split(".*type=\"|\"\\s|id_begin=\"|id_end=\"|\">");
-                    graph.createEdgeBehindTwoNodeWithId(Integer.parseInt(masOfPiese[3]),Integer.parseInt(masOfPiese[5]));
-                     }
+            mas = null;
+            mas = str.split("(\\n*.*<\\/*GRAPH>)\\n*|(<Nodes>(\\n.*\\n*)*<\\/Nodes>)|\\n*.*(<\\/*Edges>).*\\n*|<edge |\\n*<\\/edge>.*\\n*");
+            for (int i = 0; i < mas.length; i++) {
+                String[] masOfPiese;
+                if (mas[i].length() != 0) {
+                    masOfPiese = mas[i].split(".*type=\"|\"\\s|id_begin=\"|id_end=\"|\">");
+                    graph.createEdgeBehindTwoNodeWithId(Integer.parseInt(masOfPiese[3]), Integer.parseInt(masOfPiese[5]));
+                }
             }
 
             reader.close();

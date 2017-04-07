@@ -7,11 +7,11 @@ import com.company.listeners.mouseListeners.*;
 import com.company.listeners.mouseMotionListeners.*;
 
 import javax.swing.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.awt.*;
-import javax.swing.JLabel;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 public class TestFrame {
     BufferedImage imag;
@@ -30,7 +30,7 @@ public class TestFrame {
 
     Graphics2D graphics2D;
     JToolBar toolbar;
-    final JButton arrowButton ;
+    final JButton arrowButton;
     final JButton edgeButton;
     final JButton deleteButton;
     final JButton editItdfButton;
@@ -38,6 +38,7 @@ public class TestFrame {
     JFrame frame;
     JScrollPane jsp;
     private int scrollPositionX, scrollPositionY;
+
     public TestFrame() {
         controller = new Controller(this);
         frame = new JFrame("KBE: second edition");
@@ -50,28 +51,28 @@ public class TestFrame {
 
         arrowButton = new JButton(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\arrowNonActive.png"));
         edgeButton = new JButton(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\edge.png"));
-        deleteButton= new JButton(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\delete.png"));
+        deleteButton = new JButton(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\delete.png"));
         editItdfButton = new JButton(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\textEdit.png"));
         taskButton = new JButton(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\taskButton.png"));
 
         imag = new BufferedImage(2200, 2000, BufferedImage.TYPE_INT_RGB);
         jLabel = new JLabel(new ImageIcon(imag));
-        graphics2D=(Graphics2D)imag.getGraphics();
-        editListener=new EditListener(this,controller);
-        edgeListener=new EdgeListener(this,controller);
-        deleteButtonListener=new DeleteButtonListener(this,controller);
-        idtfEditButtonListener=new IdtfEditButtonListener(this,controller);
+        graphics2D = (Graphics2D) imag.getGraphics();
+        editListener = new EditListener(this, controller);
+        edgeListener = new EdgeListener(this, controller);
+        deleteButtonListener = new DeleteButtonListener(this, controller);
+        idtfEditButtonListener = new IdtfEditButtonListener(this, controller);
 
-        editMouseMotionListener=new EditMouseMotionListener(this,controller);
-        edgeMouseMotionListener=new EdgeMouseMotionListener(this,controller);
-        deleteButtonMouseMotionListener=new DeleteButtonMouseMotionListener(this,controller);
-        idtfEditButtonMouseMotionListeners=new IdtfEditButtonMouseMotionListeners(this,controller);
+        editMouseMotionListener = new EditMouseMotionListener(this, controller);
+        edgeMouseMotionListener = new EdgeMouseMotionListener(this, controller);
+        deleteButtonMouseMotionListener = new DeleteButtonMouseMotionListener(this, controller);
+        idtfEditButtonMouseMotionListeners = new IdtfEditButtonMouseMotionListeners(this, controller);
 
         jsp = new JScrollPane(jLabel);
-        graph=new Graph(this);
+        graph = new Graph(this);
         frame.setSize(1000, 800);
         jsp.setPreferredSize(new Dimension(1550, 0));
-       // jsp.setBounds(30, 30, 500, 500);
+        // jsp.setBounds(30, 30, 500, 500);
         frame.add(jsp, BorderLayout.EAST);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,25 +80,24 @@ public class TestFrame {
         creatingTolbar();
         creatingFileMenu();
 
-        System.out.println(jsp.getHeight()+"----"+jsp.getWidth());
-        jsp.getViewport().setViewPosition(new Point(0,10));
+        System.out.println(jsp.getHeight() + "----" + jsp.getWidth());
+        jsp.getViewport().setViewPosition(new Point(1100, 1000));
         //System.out.println(jsp.getAlignmentX()+"  _"+jsp.get);
-       // String[] mas1=mas[0].split()
+        // String[] mas1=mas[0].split()
 
     }
-    public  void resizePanel(int width, int heigth)
-    {
+
+    public void resizePanel(int width, int heigth) {
         imag = new BufferedImage(width, heigth, BufferedImage.TYPE_INT_RGB);
-       jLabel.setIcon(new ImageIcon(imag));
-        graphics2D=(Graphics2D)imag.getGraphics();
+        jLabel.setIcon(new ImageIcon(imag));
+        graphics2D = (Graphics2D) imag.getGraphics();
     }
 
     public JScrollPane getJsp() {
         return jsp;
     }
 
-    private void addListnersForEditGraph()
-    {
+    private void addListnersForEditGraph() {
         arrowButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\arrowActive.png"));
         edgeButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\edge.png"));
         deleteButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\delete.png"));
@@ -114,8 +114,7 @@ public class TestFrame {
         jLabel.addMouseMotionListener(editMouseMotionListener);
     }
 
-    public void addListenersForAddingEdges()
-    {
+    public void addListenersForAddingEdges() {
         arrowButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\arrowNonActive.png"));
         edgeButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\edgeActive.png"));
         deleteButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\delete.png"));
@@ -133,8 +132,7 @@ public class TestFrame {
         jLabel.addMouseMotionListener(edgeMouseMotionListener);
     }
 
-    public void addListnersForDeletingElements()
-    {
+    public void addListnersForDeletingElements() {
         arrowButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\arrowNonActive.png"));
         edgeButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\edge.png"));
         deleteButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\deleteActive.png"));
@@ -152,8 +150,7 @@ public class TestFrame {
         jLabel.addMouseMotionListener(deleteButtonMouseMotionListener);
     }
 
-    public void addListenersForEditingValues()
-    {
+    public void addListenersForEditingValues() {
         arrowButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\arrowNonActive.png"));
         edgeButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\edge.png"));
         deleteButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\delete.png"));
@@ -171,8 +168,7 @@ public class TestFrame {
         jLabel.addMouseMotionListener(idtfEditButtonMouseMotionListeners);
     }
 
-    public void addListenersForTaskRealization()
-    {
+    public void addListenersForTaskRealization() {
         arrowButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\arrowNonActive.png"));
         edgeButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\edge.png"));
         deleteButton.setIcon(new ImageIcon("E:\\GraphEditor\\src\\com\\company\\resourses\\delete.png"));
@@ -186,12 +182,11 @@ public class TestFrame {
         jLabel.removeMouseListener(deleteButtonListener);
         jLabel.removeMouseMotionListener(deleteButtonMouseMotionListener);
 
-        jLabel.addMouseListener(new TaskMouseListener(this,controller));
-        jLabel.addMouseMotionListener(new TaskMouseMotionListener(this,controller));
+        jLabel.addMouseListener(new TaskMouseListener(this, controller));
+        jLabel.addMouseMotionListener(new TaskMouseMotionListener(this, controller));
     }
 
-    private void creatingFileMenu()
-    {
+    private void creatingFileMenu() {
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
         JMenu fileMenu = new JMenu("Файл");
@@ -210,8 +205,7 @@ public class TestFrame {
         }));
         fileMenu.add(new JMenuItem(new AbstractAction("выполнить") {
             @Override
-            public void actionPerformed(ActionEvent actionEvent)
-            {
+            public void actionPerformed(ActionEvent actionEvent) {
                 controller.doTask();
             }
         }));
@@ -230,34 +224,32 @@ public class TestFrame {
             }
         }));
         graphMenu.add(new JMenuItem(new AbstractAction("Удаление элемента") {
-        @Override
-        public void actionPerformed(ActionEvent actionEvent)
-        {
-            addListnersForDeletingElements();
-        }
-    }));
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                addListnersForDeletingElements();
+            }
+        }));
         graphMenu.add(new JMenuItem(new AbstractAction("Задать значение") {
             @Override
-            public void actionPerformed(ActionEvent actionEvent)
-            {
+            public void actionPerformed(ActionEvent actionEvent) {
                 addListenersForEditingValues();
             }
         }));
     }
-    private void creatingTolbar()
-    {
+
+    private void creatingTolbar() {
         toolbar = new JToolBar("Toolbar", JToolBar.VERTICAL);
 
         arrowButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-            addListnersForEditGraph();
+                addListnersForEditGraph();
 
             }
         });
         toolbar.add(arrowButton);
         edgeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-            addListenersForAddingEdges();
+                addListenersForAddingEdges();
             }
         });
         toolbar.add(edgeButton);
@@ -269,7 +261,7 @@ public class TestFrame {
         toolbar.add(deleteButton);
         editItdfButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-            addListenersForEditingValues();
+                addListenersForEditingValues();
             }
         });
         toolbar.add(editItdfButton);
@@ -288,13 +280,13 @@ public class TestFrame {
         return jLabel;
     }
 
-    public void renderAllElements()
-    {
+    public void renderAllElements() {
         graph.renderAllElements();
     }
 
-    public void rend(){graph.renderAllElements_part2();}
-
+    public void rend() {
+        graph.renderAllElements_part2();
+    }
 
     public void setGraph(Graph graph) {
         this.graph = graph;
