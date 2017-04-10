@@ -23,20 +23,21 @@ public class MyRunnable implements Runnable {
 
     public void run() {
 
-        List<Node> visitedNodes = new ArrayList<Node>();
+       // List<Node> visitedNodes = new ArrayList<Node>();
 
         for (Node node : graph.getNodeList()) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            if(!node.isVisited())
             dfs(node, node);
-            break;
+            //break;
         }
     }
     public void dfs(Node previousNode, Node currentNode) {   //graph.renderAllElements();
         System.out.println(currentNode.getIdentificator());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         //  currentNode.setVisited(true);
         currentNode.setColorOfNode(Color.pink);
         Node nextNode = null;
@@ -47,7 +48,7 @@ public class MyRunnable implements Runnable {
                 if (!edge.isVisited()) {
                     System.out.println("its first");
                     nextNode = edge.getSecondNode();
-                    edge.setColor(Color.cyan);
+                    //edge.setColor(Color.cyan);
                     edge.setWeigth(Integer.toString(chislo));
                     edge.setVisited(true);
                     chislo++;
@@ -56,7 +57,7 @@ public class MyRunnable implements Runnable {
                 if (!edge.isVisited()) {
                     System.out.println("its second");
                     nextNode = edge.getFirstNode();
-                    edge.setColor(Color.cyan);
+                    //edge.setColor(Color.cyan);
                     edge.setWeigth(Integer.toString(chislo));
                     edge.setVisited(true);
                     chislo++;

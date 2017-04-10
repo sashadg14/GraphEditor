@@ -2,7 +2,9 @@ package com.company;
 
 
 import com.company.Controllers.Controller;
+import com.company.elementsOfGraph.Edge;
 import com.company.elementsOfGraph.Graph;
+import com.company.elementsOfGraph.Node;
 import com.company.listeners.mouseListeners.*;
 import com.company.listeners.mouseMotionListeners.*;
 
@@ -281,13 +283,50 @@ public class TestFrame {
     }
 
     public void renderAllElements() {
-        graph.renderAllElements();
+        getGraphics2D().setColor(Color.WHITE);
+        getGraphics2D().fillRect(0, 0, getImag().getWidth(), getImag().getHeight());
+        for (Edge edge : graph.getEdgeList()) {
+            renderEdge(edge);
+        }
+        for (Node node : graph.getNodeList()) {
+            renderNode(node);
+        }
+        getjLabel().updateUI();
     }
 
-    public void rend() {
-        graph.renderAllElements_part2();
-    }
+    public void renderEdge(Edge edge){
+        graphics2D.setColor(Color.gray);
+        if(edge.isActive()){
+            graphics2D.setColor(Color.orange);
+        }
+        if(edge.isVisited()){
+            graphics2D.setColor(Color.cyan);
+        }
+        graphics2D.setStroke(new BasicStroke(10));
+        if (edge.getFirstNode()!=edge.getSecondNode())
+            graphics2D.drawLine(edge.getFirstNode().getCenterX() + 15, edge.getFirstNode().getCenterY() + 15, edge.getSecondNode().getCenterX() + 15, edge.getSecondNode().getCenterY() + 15);
+        else {
+            graphics2D.fillOval(edge.getFirstNode().getCenterX() + 10, edge.getFirstNode().getCenterY() - 15, 60, 60);
+            graphics2D.setColor(Color.WHITE);
+            graphics2D.fillOval(edge.getFirstNode().getCenterX() + 20, edge.getFirstNode().getCenterY() - 5, 40, 40);
+        }
 
+        graphics2D.setColor(Color.blue);
+        graphics2D.setFont(new Font("TimesRoman", Font.ITALIC + Font.BOLD, 20));
+        graphics2D.drawString(edge.getWeigth(), (edge.getFirstNode().getCenterX() + 30 + edge.getSecondNode().getCenterX() + 30) / 2,
+                (edge.getFirstNode().getCenterY() + 30 + edge.getSecondNode().getCenterY() + 30) / 2);
+
+    }
+    public void renderNode(Node node){
+        graphics2D.setColor(node.getColorOfNode());
+        graphics2D.fillOval(node.getCenterX(), node.getCenterY(), 30, 30);
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.fillOval(node.getCenterX() + 5, node.getCenterY() + 5, 20, 20);
+        graphics2D.setColor(Color.blue);
+        graphics2D.setFont(new Font("TimesRoman", Font.ITALIC + Font.BOLD, 20));
+        graphics2D.drawString(node.getIdentificator(), node.getCenterX() + 30, node.getCenterY() + 30);
+        graphics2D.setColor(Color.white);
+    }
     public void setGraph(Graph graph) {
         this.graph = graph;
     }

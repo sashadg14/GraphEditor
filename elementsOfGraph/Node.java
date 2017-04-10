@@ -40,6 +40,10 @@ public class Node {
         this.colorOfNode = colorOfNode;
     }
 
+    public Color getColorOfNode() {
+        return colorOfNode;
+    }
+
     public Node(String identificator, long id, int centerX, int centerY) {
         colorOfNode = Color.BLACK;
         this.centerX = centerX;
@@ -96,15 +100,15 @@ public class Node {
         this.identificator = identificator;
     }
 
-    void render(Graphics2D graphics2D) {
-        graphics2D.setColor(colorOfNode);
+    public void render(Graphics2D graphics2D) {
+        /*graphics2D.setColor(colorOfNode);
         graphics2D.fillOval(centerX, centerY, 30, 30);
         graphics2D.setColor(Color.WHITE);
         graphics2D.fillOval(centerX + 5, centerY + 5, 20, 20);
         graphics2D.setColor(Color.blue);
         graphics2D.setFont(new Font("TimesRoman", Font.ITALIC + Font.BOLD, 20));
         graphics2D.drawString(identificator, centerX + 30, centerY + 30);
-        graphics2D.setColor(Color.white);
+        graphics2D.setColor(Color.white);*/
     }
 
     public boolean isOverlapWithCursor(int posX, int posY) {  // System.out.println("     "+coll);

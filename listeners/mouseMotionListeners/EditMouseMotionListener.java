@@ -39,12 +39,12 @@ public class EditMouseMotionListener implements MouseMotionListener {
                     testFrame.getJsp().getViewport().setViewPosition(new Point((int)testFrame.getJsp().getViewport().getViewPosition().getX(),
                             (int)testFrame.getJsp().getViewport().getViewPosition().getY()+50));
 
-                if(testFrame.getjLabel().getX()-testFrame.getJsp().getWidth()+mouseEvent.getX()<testFrame.getjLabel().getX()-testFrame.getJsp().getWidth()-40)
+                if(testFrame.getjLabel().getX()+mouseEvent.getX()<40&&testFrame.getjLabel().getX()+mouseEvent.getX()>0&&testFrame.getjLabel().getX()<0)
                     testFrame.getJsp().getViewport().setViewPosition(new Point((int)testFrame.getJsp().getViewport().getViewPosition().getX()-50,
                             (int)testFrame.getJsp().getViewport().getViewPosition().getY()));
-                /*if(testFrame.getjLabel().getY()-testFrame.getJsp().getHeight()+mouseEvent.getY()>-40)
+                if(testFrame.getjLabel().getY()+mouseEvent.getY()>0&&testFrame.getjLabel().getY()+mouseEvent.getY()<40&&testFrame.getjLabel().getY()<0)
                     testFrame.getJsp().getViewport().setViewPosition(new Point((int)testFrame.getJsp().getViewport().getViewPosition().getX(),
-                            (int)testFrame.getJsp().getViewport().getViewPosition().getY()+50));*/
+                            (int)testFrame.getJsp().getViewport().getViewPosition().getY()-50));
 
 
             }

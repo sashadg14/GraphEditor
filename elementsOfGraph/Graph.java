@@ -58,19 +58,6 @@ public class Graph {
 
     }
 
-    public void renderAllElements_part2() {
-        testFrame.getGraphics2D().setColor(Color.WHITE);
-        testFrame.getGraphics2D().fillRect(0, 0, testFrame.getImag().getWidth(), testFrame.getImag().getHeight());
-        for (Edge edge : edgeList) {
-            edge.render(testFrame.getGraphics2D());
-        }
-
-        for (Node node : nodeList) {
-            node.render(testFrame.getGraphics2D());
-        }
-        testFrame.getjLabel().updateUI();
-
-    }
 
     public void createEdgeBehindTwoNodeWithId(long idBeginNode, long idEndNode) {
         Node nodeBegin = null;

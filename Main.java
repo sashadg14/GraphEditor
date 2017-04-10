@@ -10,7 +10,7 @@ public class Main {
         Timer timer = new Timer(30, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                testFrame.rend();
+                testFrame.renderAllElements();
             }
         });
         timer.start();

@@ -111,19 +111,20 @@ public class Controller {
             if (node.isEntered()) {
                 masOfConnectingNodes[countOfConectingNodes] = node;
                 countOfConectingNodes++;
+                if (countOfConectingNodes == 1) {
+                    masOfConnectingNodes[1] = new Node(positionMouseX - 15, positionMouseY - 15);
+                    tempEdge = new Edge(masOfConnectingNodes[0], masOfConnectingNodes[1]);
+                    addEdge(tempEdge);
+                }
+                if (countOfConectingNodes == 2) {
+                    countOfConectingNodes = 0;
+                    tempEdge.setSecondNode(masOfConnectingNodes[1]);
+                    masOfConnectingNodes[0] = null;
+                    masOfConnectingNodes[1] = null;
+                }
             }
         }
-        if (countOfConectingNodes == 1) {
-            masOfConnectingNodes[1] = new Node(positionMouseX - 15, positionMouseY - 15);
-            tempEdge = new Edge(masOfConnectingNodes[0], masOfConnectingNodes[1]);
-            addEdge(tempEdge);
-        }
-        if (countOfConectingNodes == 2) {
-            countOfConectingNodes = 0;
-            tempEdge.setSecondNode(masOfConnectingNodes[1]);
-            masOfConnectingNodes[0] = null;
-            masOfConnectingNodes[1] = null;
-        }
+
     }
 
     public void deleteTempEdge() {
